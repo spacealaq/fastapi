@@ -14,6 +14,9 @@ from app.controllers import status_controller,post_controller
 # from utils.exceptions import AppException
 # from utils.helper import build_api_response
 
+# https://github.com/KetanSomvanshi/cart-service/blob/master/config/settings.py
+# https://testdriven.io/blog/fastapi-jwt-auth/
+
 app = FastAPI()
 
 #  register routers here and add dependency on authenticate_token if token based authentication is required
