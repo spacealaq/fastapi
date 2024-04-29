@@ -5,12 +5,12 @@ from fastapi.responses import JSONResponse
 
 # from data_adapter.db import db_engine
 
-router = APIRouter(tags=["status"])
+router = APIRouter(tags=["root"])
 
 
 #  health check endpoints
 
-@router.get("/", tags=["root"])
+@router.get("/", status_code=http.HTTPStatus.OK)
 async def read_root() -> dict:
     return {"message": "Welcome to your blog!"}
 

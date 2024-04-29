@@ -8,19 +8,23 @@ from app.models.base import DBBaseModel
 
 
 class Items(BaseModel):
-    name: str
-    description: str | None = None
-    price: float
-    tax: float | None = None
+    nombre: str
+    email: str
+    nacionalidad: str | None = None
+    sitio_turitico: str
+    presupuesto: str | None = None
+    aerolinea: str | None = None
 
     model_config = {
         "json_schema_extra": {
             "examples": [
                 {
-                    "name": "Foo",
-                    "description": "A very nice Item",
-                    "price": 35.4,
-                    "tax": 3.2,
+                    "nombre": "Jhon Doe",
+                    "email": "jhondoe@gmail.com",
+                    "nacionalidad": "Estados Unidos",
+                    "sitio_turitico": "Sanatamarta",
+                    "presupuesto": "5000 USD",
+                    "aerolinea": "Avianca",
                 }
             ]
         }
