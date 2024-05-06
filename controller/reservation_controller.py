@@ -2,6 +2,7 @@ import http
 
 from fastapi import APIRouter, Depends
 
+from logger import logger
 from controller.context_manager import build_request_context
 from models.base import GenericResponseModel
 from models.reservation import ReservationInsertModel
@@ -21,7 +22,9 @@ async def get_items(_=Depends(build_request_context)):
     :return: GenericResponseModel
     """
     response = ReservationService.get_all_items()
-    return build_api_response(response)
+    logger.error("response")
+    logger.error(response)
+    return response
 
 
 @reservation_router.post("", status_code=http.HTTPStatus.CREATED, response_model=GenericResponseModel)

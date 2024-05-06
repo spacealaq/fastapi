@@ -21,8 +21,8 @@ class ReservationInsertModel(ReservationBaseModel):
     """Item model for insert"""
 
     def build_db_model(self):
-        from data_adapter.inventory import Item
-        return Item(**self.dict())
+        from data_adapter.reservation import Reservation
+        return Reservation(**self.dict())
 
 
 class ReservationResponseModel(ReservationInsertModel):

@@ -15,7 +15,7 @@ class ReservationService:
     @staticmethod
     def get_all_items() -> GenericResponseModel:
         """
-        Get all items from inventory
+        Get all items from reservation
         :return: GenericResponseModel
         """
         items: List[ReservationModel] = Reservation.get_all_items()

@@ -70,12 +70,15 @@ CREATE TABLE public.cart_item (
 CREATE TABLE public.reservation (
 	id serial4 NOT NULL,
 	uuid uuid NOT NULL DEFAULT uuid_generate_v4(),
-	"nombre" varchar(255) NOT NULL,
-	"email" varchar(255) NOT NULL,
-	"nacionalidad" varchar(255) NOT NULL,
-	"sitio_turistico" varchar(255) NOT NULL,
-	"presupuesto" varchar(255) NOT NULL,
-	"aerolinea" varchar(255) NOT NULL,
+	created_at timestamptz NOT NULL,
+	updated_at timestamptz NOT NULL DEFAULT now(),
+	is_deleted bool NOT NULL DEFAULT false,
+	nombre varchar(255) NOT NULL,
+	email varchar(255) NOT NULL,
+	nacionalidad varchar(255) NOT NULL,
+	sitio_turistico varchar(255) NOT NULL,
+	presupuesto varchar(255) NOT NULL,
+	aerolinea varchar(255) NOT NULL,
 	CONSTRAINT reservation_pk PRIMARY KEY (id),
 	CONSTRAINT reservation_un UNIQUE (uuid)
 );

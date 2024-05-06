@@ -16,6 +16,8 @@ def build_api_response(generic_response: GenericResponseModel) -> JSONResponse:
         if not generic_response.status_code:
             generic_response.status_code = http.HTTPStatus.OK if not generic_response.error \
                 else http.HTTPStatus.UNPROCESSABLE_ENTITY
+
+        logger.error(generic_response)
         response_json = jsonable_encoder(generic_response)
         res = JSONResponse(status_code=generic_response.status_code, content=response_json)
         logger.info(extra=context_log_meta.get(),
@@ -23,5 +25,6 @@ def build_api_response(generic_response: GenericResponseModel) -> JSONResponse:
                         + f"{generic_response.status_code}")
         return res
     except Exception as e:
+        logger.error(e)
         logger.error(extra=context_log_meta.get(), msg=f"exception in build_api_response error : {e}")
         return JSONResponse(status_code=generic_response.status_code, content=generic_response.error)

@@ -43,5 +43,5 @@ class Reservation(DBBase, CartDBBase):
     def get_all_items(cls) -> List[ReservationModel]:
         from controller.context_manager import get_db_session
         db = get_db_session()
-        items = db.query(cls).filter(cls.is_deleted.is_(False)).all()
+        items = db.query(cls).filter().all()
         return [item.__to_model() for item in items]
