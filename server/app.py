@@ -8,7 +8,7 @@ from pydantic import ValidationError
 from sqlalchemy.exc import ProgrammingError, DataError, IntegrityError
 
 # from controller import status, user_controller, customer_controller, inventory_controller, cart_controller
-from controller import  user_controller
+from controller import  user_controller,reservation_controller
 from controller.context_manager import context_log_meta, context_set_db_session_rollback
 from logger import logger
 from models.base import GenericResponseModel
@@ -22,6 +22,7 @@ app = FastAPI()
 # app.include_router(status.router)
 # user creation and login apis should be open
 # app.include_router(user_controller.user_router)
+app.include_router(reservation_controller.reservation_router)
 #  token based authentication apis should have dependency on authenticate_token
 # app.include_router(customer_controller.customer_router, dependencies=[Depends(authenticate_token)])
 # app.include_router(inventory_controller.inventory_router, dependencies=[Depends(authenticate_token)])

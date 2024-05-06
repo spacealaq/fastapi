@@ -37,31 +37,45 @@ CREATE TABLE public."user" (
 
 
 -- custoemr cart table
--- CREATE TABLE public.customer_cart (
--- 	id serial4 NOT NULL,
--- 	created_at timestamptz NOT NULL,
--- 	updated_at timestamptz NOT NULL DEFAULT now(),
--- 	is_deleted bool NOT NULL DEFAULT false,
--- 	uuid uuid NOT NULL DEFAULT uuid_generate_v4(),
--- 	customer_id int4 NOT NULL,
--- 	CONSTRAINT customer_cart_pk PRIMARY KEY (id),
--- 	CONSTRAINT customer_cart_un UNIQUE (uuid),
--- 	CONSTRAINT customer_cart_fk FOREIGN KEY (customer_id) REFERENCES public."user"(id)
--- );
+CREATE TABLE public.customer_cart (
+	id serial4 NOT NULL,
+	created_at timestamptz NOT NULL,
+	updated_at timestamptz NOT NULL DEFAULT now(),
+	is_deleted bool NOT NULL DEFAULT false,
+	uuid uuid NOT NULL DEFAULT uuid_generate_v4(),
+	customer_id int4 NOT NULL,
+	CONSTRAINT customer_cart_pk PRIMARY KEY (id),
+	CONSTRAINT customer_cart_un UNIQUE (uuid),
+	CONSTRAINT customer_cart_fk FOREIGN KEY (customer_id) REFERENCES public."user"(id)
+);
 
 -- cart item table
--- CREATE TABLE public.cart_item (
--- 	id serial4 NOT NULL,
--- 	created_at timestamptz NOT NULL,
--- 	updated_at timestamptz NOT NULL DEFAULT now(),
--- 	is_deleted bool NOT NULL DEFAULT false,
--- 	uuid uuid NOT NULL DEFAULT uuid_generate_v4(),
--- 	item_id int4 NOT NULL,
--- 	cart_id int4 NOT NULL,
--- 	quantity_in_cart int8 NOT NULL,
--- 	CONSTRAINT cart_item_pk PRIMARY KEY (id),
--- 	CONSTRAINT cart_item_quantity_should_be_valid CHECK ((quantity_in_cart >= 0)),
--- 	CONSTRAINT cart_item_un UNIQUE (uuid),
--- 	CONSTRAINT cart_item_fk FOREIGN KEY (cart_id) REFERENCES public.customer_cart(id),
--- 	CONSTRAINT cart_item_fk_1 FOREIGN KEY (item_id) REFERENCES public.item(id)
--- );
+CREATE TABLE public.cart_item (
+	id serial4 NOT NULL,
+	created_at timestamptz NOT NULL,
+	updated_at timestamptz NOT NULL DEFAULT now(),
+	is_deleted bool NOT NULL DEFAULT false,
+	uuid uuid NOT NULL DEFAULT uuid_generate_v4(),
+	item_id int4 NOT NULL,
+	cart_id int4 NOT NULL,
+	quantity_in_cart int8 NOT NULL,
+	CONSTRAINT cart_item_pk PRIMARY KEY (id),
+	CONSTRAINT cart_item_quantity_should_be_valid CHECK ((quantity_in_cart >= 0)),
+	CONSTRAINT cart_item_un UNIQUE (uuid),
+	CONSTRAINT cart_item_fk FOREIGN KEY (cart_id) REFERENCES public.customer_cart(id),
+	CONSTRAINT cart_item_fk_1 FOREIGN KEY (item_id) REFERENCES public.item(id)
+);
+
+-- reservation table
+CREATE TABLE public.reservation (
+	id serial4 NOT NULL,
+	uuid uuid NOT NULL DEFAULT uuid_generate_v4(),
+	"nombre" varchar(255) NOT NULL,
+	"email" varchar(255) NOT NULL,
+	"nacionalidad" varchar(255) NOT NULL,
+	"sitio_turistico" varchar(255) NOT NULL,
+	"presupuesto" varchar(255) NOT NULL,
+	"aerolinea" varchar(255) NOT NULL,
+	CONSTRAINT reservation_pk PRIMARY KEY (id),
+	CONSTRAINT reservation_un UNIQUE (uuid)
+);
