@@ -1,0 +1,54 @@
+version: '3.8'
+services:
+  #  build the image for fastapi app
+  app:
+    build:
+      context: ../
+      dockerfile: docker/app/Dockerfile
+    restart: always
+    container_name: model_app
+    expose:
+      - '9999'
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    ports:
+      - 9999:9999
+    command: run_app
+  postgres:
+    restart: always
+    #   this container_name would be used inside of the pp as hostname for postgres
+    container_name: postgres_db
+    image: postgres:alpine
+    # provide script to initiate tables
+    volumes:
+      - ../scripts/init_db.sql:/docker-entrypoint-initdb.d/init.sql
+
+    # Pass postgres environment variables
+    environment:
+      POSTGRES_PASSWORD: hce`9Q2?L£9Z
+      POSTGRES_DB: iadb
+      POSTGRES_USER: iadb_user
+    expose:
+      - '5432'
+    ports:
+      - 5432
+  # pgAdmin 4 service
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      # Default email for pgAdmin 4
+      PGADMIN_DEFAULT_EMAIL: admin@email.com
+      # Password for pgAdmin 4
+      PGADMIN_DEFAULT_PASSWORD: adminpassword
+    ports:
+      # Map host port 5050 to container port 80
+      - '5050:80'
+    volumes:
+      # Mount a volume to persist pgAdmin 4 data
+      - ../scripts/init_db.sql:/docker-entrypoint-initdb.d/init.sql
+    depends_on:
+      # Ensure that this service starts after 'db'
+      - postgres
+    restart: always
